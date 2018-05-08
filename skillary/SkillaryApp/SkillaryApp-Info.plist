@@ -34,6 +34,12 @@
 	<string>Main</string>
 	<key>UIRequiresFullScreen</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Add Access To Camera Usage</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Add Access To Micro Usage</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Add Access To use Photo Library</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

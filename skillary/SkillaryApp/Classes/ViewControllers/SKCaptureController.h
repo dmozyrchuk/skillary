@@ -12,4 +12,8 @@
 @property (nonatomic, strong) NSString *duration;
 @property (nonatomic, strong) NSString *text;
 
+@property (weak, nonatomic) IBOutlet UIView *vwVideo;
+@property (weak, nonatomic) IBOutlet UIButton *btStart;
+@property (weak, nonatomic) IBOutlet UILabel *lbCounter;
+
 @end
