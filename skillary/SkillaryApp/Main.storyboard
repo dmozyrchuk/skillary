@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AAM-OY-TrO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -38,7 +38,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5Td-tu-f7D"/>
                     <connections>
-                        <segue destination="W6l-fw-Tbn" kind="show" identifier="tocaptureScreen" id="Uqw-nO-DSp"/>
+                        <segue destination="W6l-fw-Tbn" kind="show" identifier="toCaptureScreen" id="Uqw-nO-DSp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kgs-2H-4FF" userLabel="First Responder" sceneMemberID="firstResponder"/>

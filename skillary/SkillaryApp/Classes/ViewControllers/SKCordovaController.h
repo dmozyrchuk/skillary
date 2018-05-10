@@ -11,6 +11,8 @@
 #import <Cordova/CDVCommandQueue.h>
 
 @interface SKCordovaController : CDVViewController
+
+- (void)goToCaptureScreen:(NSString *)duration text:(NSString *)text;
 @end
 
 @interface SKCordovaCommandDelegate : CDVCommandDelegateImpl

@@ -7,6 +7,7 @@
 
 #import "SKCaptureController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <Photos/Photos.h>
 
 @interface SKCaptureController () <AVCaptureFileOutputRecordingDelegate>
 
@@ -150,9 +151,23 @@
         NSLog(@"%@", error.description);
     } else {
         if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum ([fileURL path])) {
-            UISaveVideoAtPathToSavedPhotosAlbum ([fileURL path], nil, nil, nil);
+            [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:fileURL];
+            } completionHandler:^(BOOL success, NSError * _Nullable error) {
+                if (success) {
+                    PHFetchOptions *options = [[PHFetchOptions alloc] init];
+                    options.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"creationDate" ascending:NO]];
+                    PHAsset *asset = [[PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:options] firstObject];
+                    if (self.delegate != nil) {
+                        [self.delegate videoCaptureFinishedWith:self.duration path:asset.localIdentifier];
+                    }
+
+                }
+            }];
+
         }
     }
 }
+
 
 @end

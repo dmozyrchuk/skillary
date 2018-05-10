@@ -8,6 +8,7 @@
 #import "SKCapturePlugin.h"
 #import "AppDelegate.h"
 #import "SKCaptureController.h"
+#import "SKCordovaController.h"
 
 @implementation SKCapturePlugin
 
@@ -16,11 +17,10 @@
     NSString* text = [command.arguments objectAtIndex:1];
     if(duration != nil && text != nil) {
         NSLog(@"Open Capture Screen: duration %@ text: %@", duration, text);
-        SKCaptureController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SKCaptureController"];
-        controller.duration = duration;
-        controller.text = text;
         UINavigationController *navigation = (UINavigationController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
-        [navigation showViewController:controller sender:self];
+        if ([navigation.topViewController isMemberOfClass:[SKCordovaController classForKeyedArchiver]]) {
+            [(SKCordovaController *)navigation.topViewController goToCaptureScreen:duration text:text];
+        }
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } else {

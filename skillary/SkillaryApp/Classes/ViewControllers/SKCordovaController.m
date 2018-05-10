@@ -6,8 +6,12 @@
 //
 
 #import "SKCordovaController.h"
+#import "SKCaptureController.h"
 
-@interface SKCordovaController ()
+@interface SKCordovaController () <SKCaptureControllerDelegate>
+
+@property (nonatomic, strong) NSString *duration;
+@property (nonatomic, strong) NSString *text;
 
 @end
 
@@ -23,15 +27,37 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"toCaptureScreen"]) {
+        SKCaptureController *controller = segue.destinationViewController;
+        controller.duration = self.duration;
+        controller.text = self.text;
+        controller.delegate = self;
+    }
 }
-*/
+
+
+#pragma mark - Custom accessors
+
+- (void)goToCaptureScreen:(NSString *)duration text:(NSString *)text {
+    self.duration = duration;
+    self.text = text;
+    [self performSegueWithIdentifier:@"toCaptureScreen" sender:self];
+}
+
+#pragma mark - SKCaptureControllerDelegate
+
+- (void)videoCaptureFinishedWith:(NSString *)duration path:(NSString *)path {
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self.navigationController popViewControllerAnimated:YES];
+        [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishCapturingScreen(%@)", duration]];
+    });
+
+}
 
 @end
 
