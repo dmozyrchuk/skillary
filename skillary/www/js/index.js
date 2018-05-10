@@ -55,13 +55,15 @@ var app = {
         var fail = function(e) {
                  console.log(e)
         }
-        var capture = "10"
+        var capture = "2"
         var text = "test"
         cordova.exec(win, fail, "SKCapturePlugin", "openCaptureScreen", [capture, text]);
     },
 
-    finishCapturingScreen: function (duration) {
-        console.log("Capturing finished! " + duration);
+    finishCapturingScreen: function (path, duration) {
+        var label = document.getElementById("captureLbl");
+        label.value = "Capture result: " + path + " " + duration;
+        console.log("Capturing finished! " + path + " " + duration);
     }
     
 };

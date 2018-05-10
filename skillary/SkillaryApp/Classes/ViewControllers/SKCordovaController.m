@@ -54,7 +54,7 @@
 - (void)videoCaptureFinishedWith:(NSString *)duration path:(NSString *)path {
     dispatch_async(dispatch_get_main_queue(), ^ {
         [self.navigationController popViewControllerAnimated:YES];
-        [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishCapturingScreen(%@)", duration]];
+        [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishCapturingScreen(\"%@\", \"%@\")", duration, path]];
     });
 
 }
