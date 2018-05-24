@@ -114,7 +114,7 @@
 }
 
 - (void)updateCounterLabel {
-    self.lbCounter.text = [NSString stringWithFormat:@"%d", currentCounterValiue];
+    self.lbCounter.text = [NSString stringWithFormat:@"%ld", (long)currentCounterValiue];
 }
 
 - (void)startCapturing {

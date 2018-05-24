@@ -39,6 +39,7 @@
                     <navigationItem key="navigationItem" id="5Td-tu-f7D"/>
                     <connections>
                         <segue destination="W6l-fw-Tbn" kind="show" identifier="toCaptureScreen" id="Uqw-nO-DSp"/>
+                        <segue destination="9jQ-jj-5MX" kind="show" identifier="toPhotoScreen" id="4jX-hM-i4L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kgs-2H-4FF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -93,6 +94,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRh-6h-8iM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1109.5999999999999" y="70.614692653673174"/>
+        </scene>
+        <!--Photo Controller-->
+        <scene sceneID="wEx-IP-1xS">
+            <objects>
+                <viewController id="9jQ-jj-5MX" customClass="SKPhotoController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HWS-ox-JqF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXz-bm-eZB">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vcn-Xo-KC3">
+                                <rect key="frame" x="164" y="627" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="captureButtonTapped:" destination="9jQ-jj-5MX" eventType="touchUpInside" id="ALw-Ty-aDY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vcn-Xo-KC3" firstAttribute="centerX" secondItem="kjx-Jw-DP0" secondAttribute="centerX" id="8W4-XN-3Rv"/>
+                            <constraint firstItem="kjx-Jw-DP0" firstAttribute="trailing" secondItem="OXz-bm-eZB" secondAttribute="trailing" id="QUO-qx-65A"/>
+                            <constraint firstItem="kjx-Jw-DP0" firstAttribute="bottom" secondItem="OXz-bm-eZB" secondAttribute="bottom" id="Ug5-4E-j4M"/>
+                            <constraint firstItem="OXz-bm-eZB" firstAttribute="leading" secondItem="kjx-Jw-DP0" secondAttribute="leading" id="ZVD-FN-tL7"/>
+                            <constraint firstItem="OXz-bm-eZB" firstAttribute="top" secondItem="kjx-Jw-DP0" secondAttribute="top" id="nRt-4X-f8i"/>
+                            <constraint firstItem="kjx-Jw-DP0" firstAttribute="bottom" secondItem="vcn-Xo-KC3" secondAttribute="bottom" constant="10" id="tq8-zt-VGw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kjx-Jw-DP0"/>
+                    </view>
+                    <connections>
+                        <outlet property="vwPhoto" destination="OXz-bm-eZB" id="p2k-R5-wa9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nu3-gz-8YD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1109.5999999999999" y="790.25487256371821"/>
         </scene>
     </scenes>
 </document>

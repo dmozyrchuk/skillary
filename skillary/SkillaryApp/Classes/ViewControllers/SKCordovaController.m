@@ -7,11 +7,13 @@
 
 #import "SKCordovaController.h"
 #import "SKCaptureController.h"
+#import "SKPhotoController.h"
 
 @interface SKCordovaController () <SKCaptureControllerDelegate>
 
 @property (nonatomic, strong) NSString *duration;
 @property (nonatomic, strong) NSString *text;
+@property (nonatomic, assign) NSInteger photosCount;
 
 @end
 
@@ -37,6 +39,8 @@
         controller.duration = self.duration;
         controller.text = self.text;
         controller.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"toPhotoScreen"]) {
+
     }
 }
 
@@ -47,6 +51,11 @@
     self.duration = duration;
     self.text = text;
     [self performSegueWithIdentifier:@"toCaptureScreen" sender:self];
+}
+
+- (void)goToPhotoScreen:(NSInteger)photosCount {
+    self.photosCount = photosCount;
+    [self performSegueWithIdentifier:@"toPhotoScreen" sender:self];
 }
 
 #pragma mark - SKCaptureControllerDelegate

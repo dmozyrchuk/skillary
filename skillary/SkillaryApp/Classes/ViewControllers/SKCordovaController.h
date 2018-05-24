@@ -13,6 +13,8 @@
 @interface SKCordovaController : CDVViewController
 
 - (void)goToCaptureScreen:(NSString *)duration text:(NSString *)text;
+- (void)goToPhotoScreen:(NSInteger)photosCount;
+
 @end
 
 @interface SKCordovaCommandDelegate : CDVCommandDelegateImpl

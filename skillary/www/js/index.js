@@ -35,6 +35,7 @@ var app = {
     onDeviceReady: function () {
         // app.receivedEvent('deviceready');
         document.getElementById("captureBtn").onclick = app.openCaptureScreen;
+        document.getElementById("photoBtn").onclick = app.openPhotoScreen;
     },
     // Update DOM on a Received Event
     receivedEvent: function (id) {
@@ -58,6 +59,17 @@ var app = {
         var capture = "2"
         var text = "test"
         cordova.exec(win, fail, "SKCapturePlugin", "openCaptureScreen", [capture, text]);
+    },
+
+    openPhotoScreen: function() {
+        var win = function(d) {
+            console.log("CaptureScreen Opened!");
+        };
+        var fail = function(e) {
+            console.log(e)
+        }
+        var count = "3"
+        cordova.exec(win, fail, "SKCapturePlugin", "openPhotoScreen", [count]);
     },
 
     finishCapturingScreen: function (path, duration) {

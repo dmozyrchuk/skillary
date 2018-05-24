@@ -29,4 +29,20 @@
     }
 }
 
+-(void)openPhotoScreen:(CDVInvokedUrlCommand*) command {
+    NSString* photosCount = [command.arguments objectAtIndex:0];
+    if(photosCount != nil) {
+        NSLog(@"Open Photo Screen: photos count %@", photosCount);
+        UINavigationController *navigation = (UINavigationController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        if ([navigation.topViewController isMemberOfClass:[SKCordovaController classForKeyedArchiver]]) {
+            [(SKCordovaController *)navigation.topViewController goToPhotoScreen:[photosCount integerValue]];
+        }
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } else {
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
+}
+
 @end

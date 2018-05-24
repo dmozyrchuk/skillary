@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
+		132FB1B520B4133B00533D44 /* SKPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132FB1B420B4133B00533D44 /* SKPhotoController.m */; };
+		1331E14420B6958E004CA7E7 /* SKCameraHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1331E14320B6958E004CA7E7 /* SKCameraHelper.m */; };
 		136C798A209EFA3200FC1C4C /* SKCordovaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 136C7989209EFA3200FC1C4C /* SKCordovaController.m */; };
 		136C798D209EFA5000FC1C4C /* SKCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 136C798C209EFA5000FC1C4C /* SKCaptureController.m */; };
 		136C798F209EFA7C00FC1C4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 136C798E209EFA7C00FC1C4C /* Main.storyboard */; };
@@ -46,6 +48,10 @@
 
 /* Begin PBXFileReference section */
 		0207DA571B56EA530066E2B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SkillaryApp/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		132FB1B320B4133B00533D44 /* SKPhotoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPhotoController.h; sourceTree = "<group>"; };
+		132FB1B420B4133B00533D44 /* SKPhotoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPhotoController.m; sourceTree = "<group>"; };
+		1331E14220B6958E004CA7E7 /* SKCameraHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SKCameraHelper.h; path = SkillaryApp/Classes/Helpers/SKCameraHelper.h; sourceTree = SOURCE_ROOT; };
+		1331E14320B6958E004CA7E7 /* SKCameraHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SKCameraHelper.m; path = SkillaryApp/Classes/Helpers/SKCameraHelper.m; sourceTree = SOURCE_ROOT; };
 		136C7988209EFA3200FC1C4C /* SKCordovaController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKCordovaController.h; sourceTree = "<group>"; };
 		136C7989209EFA3200FC1C4C /* SKCordovaController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKCordovaController.m; sourceTree = "<group>"; };
 		136C798B209EFA5000FC1C4C /* SKCaptureController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKCaptureController.h; sourceTree = "<group>"; };
@@ -90,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				136C7984209EFA0100FC1C4C /* ViewControllers */,
+				1331E14020B69565004CA7E7 /* Helpers */,
 				302D95EE14D2391D003F00A1 /* MainViewController.h */,
 				302D95EF14D2391D003F00A1 /* MainViewController.m */,
 				302D95F014D2391D003F00A1 /* MainViewController.xib */,
@@ -100,6 +107,16 @@
 			path = SkillaryApp/Classes;
 			sourceTree = SOURCE_ROOT;
 		};
+		1331E14020B69565004CA7E7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1331E14220B6958E004CA7E7 /* SKCameraHelper.h */,
+				1331E14320B6958E004CA7E7 /* SKCameraHelper.m */,
+			);
+			name = Helpers;
+			path = ViewControllers/Helpers;
+			sourceTree = "<group>";
+		};
 		136C7984209EFA0100FC1C4C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +124,8 @@
 				136C7989209EFA3200FC1C4C /* SKCordovaController.m */,
 				136C798B209EFA5000FC1C4C /* SKCaptureController.h */,
 				136C798C209EFA5000FC1C4C /* SKCaptureController.m */,
+				132FB1B320B4133B00533D44 /* SKPhotoController.h */,
+				132FB1B420B4133B00533D44 /* SKPhotoController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -319,6 +338,8 @@
 			files = (
 				136C798A209EFA3200FC1C4C /* SKCordovaController.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				1331E14420B6958E004CA7E7 /* SKCameraHelper.m in Sources */,
+				132FB1B520B4133B00533D44 /* SKPhotoController.m in Sources */,
 				136C798D209EFA5000FC1C4C /* SKCaptureController.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,

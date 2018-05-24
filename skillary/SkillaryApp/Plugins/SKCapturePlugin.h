@@ -11,4 +11,6 @@
 
 - (void)openCaptureScreen:(CDVInvokedUrlCommand*) command;
 
+- (void)openPhotoScreen:(CDVInvokedUrlCommand*) command;
+
 @end
