@@ -8,6 +8,12 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
+@protocol SKCameraHelperDelegate
+
+- (void)facesDidRecognized:(NSArray<__kindof AVMetadataObject *> *)metadataObjects;
+
+@end
+
 @interface SKCameraHelper : NSObject <AVCapturePhotoCaptureDelegate, AVCaptureMetadataOutputObjectsDelegate>
 
 typedef void (^PrepareCallback)(NSError *error);
@@ -20,6 +26,8 @@ typedef void (^CaptureCallback)(UIImage *image, NSError *error);
 @property (nonatomic , strong) AVCaptureMetadataOutput *metadataOutput;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property (nonatomic, strong) CIDetector *faceDetector;
+
+@property (nonatomic, weak) id<SKCameraHelperDelegate> delegate;
 
 
 @property (nonatomic, strong) CaptureCallback photoCaptureCompletionBlock;

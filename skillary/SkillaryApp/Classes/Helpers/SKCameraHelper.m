@@ -113,6 +113,13 @@
     for (AVMetadataObject *metadataObject in metadataObjects) {
         NSLog(@"%@", metadataObject);
     }
+    NSMutableArray *transfromedArray = [[NSMutableArray alloc] init];
+    for (AVMetadataObject *object in metadataObjects) {
+        [transfromedArray addObject:[self.previewLayer transformedMetadataObjectForMetadataObject:object]];
+    }
+    if (self.delegate != nil) {
+        [self.delegate facesDidRecognized:transfromedArray];
+    }
 
 }
 

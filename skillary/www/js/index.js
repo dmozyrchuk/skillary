@@ -76,6 +76,12 @@ var app = {
         var label = document.getElementById("captureLbl");
         label.value = "Capture result: " + path + " " + duration;
         console.log("Capturing finished! " + path + " " + duration);
+    },
+
+    finishAuthenticationWithPhoto: function (photos) {
+        var label = document.getElementById("captureLbl");
+        label.value = "Capture result: " + photos;
+        console.log("Capturing finished! " + photos);
     }
     
 };

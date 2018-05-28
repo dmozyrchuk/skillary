@@ -7,6 +7,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SKPhotoControllerDelegate
+
+- (void)photosCaptureDidFinishWith:(NSArray *)photos;
+
+@end
+
 @interface SKPhotoController : UIViewController
+
+@property (nonatomic, assign) NSInteger photosCount;
+
+@property (nonatomic, weak) id<SKPhotoControllerDelegate> delegate;
 
 @end

@@ -9,7 +9,7 @@
 #import "SKCaptureController.h"
 #import "SKPhotoController.h"
 
-@interface SKCordovaController () <SKCaptureControllerDelegate>
+@interface SKCordovaController () <SKCaptureControllerDelegate, SKPhotoControllerDelegate>
 
 @property (nonatomic, strong) NSString *duration;
 @property (nonatomic, strong) NSString *text;
@@ -40,7 +40,9 @@
         controller.text = self.text;
         controller.delegate = self;
     } else if ([segue.identifier isEqualToString:@"toPhotoScreen"]) {
-
+        SKPhotoController *controller = segue.destinationViewController;
+        controller.photosCount = self.photosCount;
+        controller.delegate = self;
     }
 }
 
@@ -66,6 +68,19 @@
         [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishCapturingScreen(\"%@\", \"%@\")", duration, path]];
     });
 
+}
+
+#pragma mark - SKPhotoControllerDelegate
+
+- (void)photosCaptureDidFinishWith:(NSArray *)photos {
+    NSMutableArray *photosData = [[NSMutableArray alloc] init];
+    for (UIImage *photo in photos) {
+        [photosData addObject:UIImagePNGRepresentation(photo)];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self.navigationController popViewControllerAnimated:YES];
+        [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishAuthenticationWithPhoto(%@)", photosData]];
+    });
 }
 
 @end
