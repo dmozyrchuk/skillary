@@ -80,8 +80,8 @@ var app = {
 
     finishAuthenticationWithPhoto: function (photos) {
         var label = document.getElementById("captureLbl");
-        label.value = "Capture result: " + photos;
-        console.log("Capturing finished! " + photos);
+        label.value = "Capture result: Finished Capturing" + photos;
+        console.log("Capturing finished!" + photos);
     }
     
 };

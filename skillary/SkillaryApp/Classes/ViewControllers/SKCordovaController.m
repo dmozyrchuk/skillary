@@ -73,13 +73,9 @@
 #pragma mark - SKPhotoControllerDelegate
 
 - (void)photosCaptureDidFinishWith:(NSArray *)photos {
-    NSMutableArray *photosData = [[NSMutableArray alloc] init];
-    for (UIImage *photo in photos) {
-        [photosData addObject:UIImagePNGRepresentation(photo)];
-    }
     dispatch_async(dispatch_get_main_queue(), ^ {
         [self.navigationController popViewControllerAnimated:YES];
-        [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishAuthenticationWithPhoto(%@)", photosData]];
+        [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishAuthenticationWithPhoto(%@)", photos]];
     });
 }
 

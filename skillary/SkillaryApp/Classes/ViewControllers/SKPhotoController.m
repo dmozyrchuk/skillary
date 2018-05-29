@@ -77,7 +77,8 @@
                 self.lbTitle.text = [NSString stringWithFormat:@"Face Control: фото %u из %ld", photos.count + 1, (long)self.photosCount];
             } else {
                 if (self.delegate) {
-                    [self.delegate photosCaptureDidFinishWith:photos];
+                    NSArray *pathes = [self saveImagesToDocuments:photos];
+                    [self.delegate photosCaptureDidFinishWith:pathes];
                 }
             }
         }
@@ -102,6 +103,30 @@
     self.btCapture.hidden = YES;
     [self.view layoutIfNeeded];
 }
+
+- (NSArray *)saveImagesToDocuments:(NSArray *)images {
+    NSMutableArray *pathes = [[NSMutableArray alloc] init];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/MyFolder"];
+
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
+    } else {
+        [[NSFileManager defaultManager] removeItemAtPath:dataPath error:&error];
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
+    }
+    for (int i = 0; i < images.count; i++) {
+        UIImage *image = images[i];
+        NSString *filePath = [dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"image%d.png", i]];
+        NSData *pngData = UIImagePNGRepresentation(image);
+        [pngData writeToFile:filePath atomically:YES];
+        [pathes addObject:filePath];
+    }
+    return pathes;
+}
+
 #pragma mark = SKCameraHelperDelegate
 
 - (void)facesDidRecognized:(NSArray<__kindof AVMetadataObject *> *)metadataObjects {
