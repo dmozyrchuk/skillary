@@ -56,7 +56,7 @@ var app = {
         var fail = function(e) {
                  console.log(e)
         }
-        var capture = "2"
+        var capture = "30"
         var text = "test"
         cordova.exec(win, fail, "SKCapturePlugin", "openCaptureScreen", [capture, text]);
     },
