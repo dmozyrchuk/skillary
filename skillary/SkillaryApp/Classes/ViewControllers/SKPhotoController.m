@@ -74,7 +74,7 @@
         } else {
             [photos addObject:image];
             if (photos.count < self.photosCount) {
-                self.lbTitle.text = [NSString stringWithFormat:@"Face Control: фото %u из %ld", photos.count + 1, (long)self.photosCount];
+                self.lbTitle.text = [NSString stringWithFormat:@"Face Control: фото %lu из %ld", photos.count + 1, (long)self.photosCount];
             } else {
                 if (self.delegate) {
                     NSArray *pathes = [self saveImagesToDocuments:photos];
@@ -86,7 +86,9 @@
 }
 
 - (IBAction)backButtonTapped:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.delegate) {
+        [self.delegate photosCaptureAborted];
+    }
 }
 
 #pragma mark - Custom Accessors

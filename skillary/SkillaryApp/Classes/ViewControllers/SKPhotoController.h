@@ -10,6 +10,7 @@
 @protocol SKPhotoControllerDelegate
 
 - (void)photosCaptureDidFinishWith:(NSArray *)photos;
+- (void)photosCaptureAborted;
 
 @end
 

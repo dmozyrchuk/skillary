@@ -70,12 +70,26 @@
 
 }
 
+- (void)videoCaptureAborted {
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self.navigationController popViewControllerAnimated:YES];
+        [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishCapturingWithoutVideo()"]];
+    });
+}
+
 #pragma mark - SKPhotoControllerDelegate
 
 - (void)photosCaptureDidFinishWith:(NSArray *)photos {
     dispatch_async(dispatch_get_main_queue(), ^ {
         [self.navigationController popViewControllerAnimated:YES];
         [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishAuthenticationWithPhoto(%@)", photos]];
+    });
+}
+
+- (void)photosCaptureAborted {
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self.navigationController popViewControllerAnimated:YES];
+        [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishAuthenticationWithoutPhoto()"]];
     });
 }
 

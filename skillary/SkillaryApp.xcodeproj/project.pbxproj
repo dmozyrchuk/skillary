@@ -16,6 +16,7 @@
 		13301F0120BBBBB600B5BDA4 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13301EFA20BBBBB600B5BDA4 /* Roboto-Regular.ttf */; };
 		13301F0220BBBBB600B5BDA4 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13301EFB20BBBBB600B5BDA4 /* Roboto-Thin.ttf */; };
 		1331E14420B6958E004CA7E7 /* SKCameraHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1331E14320B6958E004CA7E7 /* SKCameraHelper.m */; };
+		134C60B420C8F9E4007D6794 /* DPVideoMerger.m in Sources */ = {isa = PBXBuildFile; fileRef = 134C60B120C8F9E3007D6794 /* DPVideoMerger.m */; };
 		136C798A209EFA3200FC1C4C /* SKCordovaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 136C7989209EFA3200FC1C4C /* SKCordovaController.m */; };
 		136C798D209EFA5000FC1C4C /* SKCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 136C798C209EFA5000FC1C4C /* SKCaptureController.m */; };
 		136C798F209EFA7C00FC1C4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 136C798E209EFA7C00FC1C4C /* Main.storyboard */; };
@@ -64,6 +65,8 @@
 		13301EFB20BBBBB600B5BDA4 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		1331E14220B6958E004CA7E7 /* SKCameraHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SKCameraHelper.h; path = SkillaryApp/Classes/Helpers/SKCameraHelper.h; sourceTree = SOURCE_ROOT; };
 		1331E14320B6958E004CA7E7 /* SKCameraHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SKCameraHelper.m; path = SkillaryApp/Classes/Helpers/SKCameraHelper.m; sourceTree = SOURCE_ROOT; };
+		134C60B120C8F9E3007D6794 /* DPVideoMerger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DPVideoMerger.m; path = SkillaryApp/Classes/Helpers/DPVideoMerger.m; sourceTree = SOURCE_ROOT; };
+		134C60B320C8F9E4007D6794 /* DPVideoMerger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DPVideoMerger.h; path = SkillaryApp/Classes/Helpers/DPVideoMerger.h; sourceTree = SOURCE_ROOT; };
 		136C7988209EFA3200FC1C4C /* SKCordovaController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKCordovaController.h; sourceTree = "<group>"; };
 		136C7989209EFA3200FC1C4C /* SKCordovaController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKCordovaController.m; sourceTree = "<group>"; };
 		136C798B209EFA5000FC1C4C /* SKCaptureController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKCaptureController.h; sourceTree = "<group>"; };
@@ -136,6 +139,8 @@
 		1331E14020B69565004CA7E7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				134C60B320C8F9E4007D6794 /* DPVideoMerger.h */,
+				134C60B120C8F9E3007D6794 /* DPVideoMerger.m */,
 				1331E14220B6958E004CA7E7 /* SKCameraHelper.h */,
 				1331E14320B6958E004CA7E7 /* SKCameraHelper.m */,
 			);
@@ -369,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				134C60B420C8F9E4007D6794 /* DPVideoMerger.m in Sources */,
 				136C798A209EFA3200FC1C4C /* SKCordovaController.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1331E14420B6958E004CA7E7 /* SKCameraHelper.m in Sources */,

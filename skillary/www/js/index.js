@@ -82,6 +82,18 @@ var app = {
         var label = document.getElementById("captureLbl");
         label.value = "Capture result: Finished Capturing" + photos;
         console.log("Capturing finished!" + photos);
+    },
+
+    finishAuthenticationWithoutPhoto: function() {
+        var label = document.getElementById("captureLbl");
+        label.value = "Capture result: Capturing Aborted";
+        console.log("Capturing aborted!");
+    },
+
+    finishCapturingWithoutVideo: function() {
+        var label = document.getElementById("captureLbl");
+        label.value = "Capture result: Capturing Aborted";
+        console.log("Capturing aborted!");
     }
     
 };

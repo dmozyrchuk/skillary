@@ -8,6 +8,7 @@
 #import "SKCaptureController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/Photos.h>
+#import "DPVideoMerger.h"
 
 typedef enum : NSUInteger {
     prepared,
@@ -32,6 +33,7 @@ typedef enum : NSUInteger {
     BOOL userScrolled;
     CGFloat scrollSpeed;
     CGFloat fontSize;
+    NSMutableArray *pathes;
 }
 
 - (void)viewDidLoad {
@@ -42,6 +44,7 @@ typedef enum : NSUInteger {
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
     pan.cancelsTouchesInView = NO;
     [self.vwGestures addGestureRecognizer:pan];
+    pathes = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
 }
 
@@ -127,6 +130,7 @@ typedef enum : NSUInteger {
     scrollSpeed = 100.0f;
     fontSize = 44.0f;
     [self.tvSubtitles setFont:[UIFont systemFontOfSize:fontSize]];
+    [self.tvSubtitles setText:self.text];
     self.currentState = prepared;
     [self updateCounterLabel];
     isSubtitlesHidden = YES;
@@ -135,6 +139,7 @@ typedef enum : NSUInteger {
     [self.btSubtitles setImage:[UIImage imageNamed:@"subtitles-off"] forState:UIControlStateNormal];
     self.lbSpeed.text = [NSString stringWithFormat:@"%.0f", scrollSpeed];
     self.lbFont.text = [NSString stringWithFormat:@"%.0f", fontSize];
+    self.vwLoading.hidden = YES;
     CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
     CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
     self.vwLeftVerticalSepratorTrailingConstraint.constant = screenWidth / 6;
@@ -203,7 +208,7 @@ typedef enum : NSUInteger {
     if([captureSession canAddOutput:movieFileOutput]){
         [captureSession addOutput:movieFileOutput];
     }
-    fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"1.mov"]];
+    fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"0.mov"]];
 }
 
 - (void)setupPreview {
@@ -296,28 +301,51 @@ typedef enum : NSUInteger {
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)output didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray<AVCaptureConnection *> *)connections error:(NSError *)error {
+    [pathes addObject:fileURL];
     if (self.currentState == started) {
+        self.vwLoading.hidden = NO;
         self.currentState = finished;
         if (error) {
+            self.vwLoading.hidden = YES;
             NSLog(@"%@", error.description);
+            if (self.delegate != nil) {
+                [self.delegate videoCaptureAborted];
+            }
         } else {
-            if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum ([fileURL path])) {
-                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-                    [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:fileURL];
-                } completionHandler:^(BOOL success, NSError * _Nullable error) {
-                    if (success) {
-                        PHFetchOptions *options = [[PHFetchOptions alloc] init];
-                        options.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"creationDate" ascending:NO]];
-                        PHAsset *asset = [[PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:options] firstObject];
-                        if (self.delegate != nil) {
-                            [self.delegate videoCaptureFinishedWith:self.duration path:asset.localIdentifier];
-                        }
+            [DPVideoMerger mergeVideosWithFileURLs:pathes completion:^(NSURL *mergedVideoURL, NSError *error) {
+                if (error) {
+                    self.vwLoading.hidden = YES;
+                    if (self.delegate != nil) {
+                        [self.delegate videoCaptureAborted];
+                    }
+                    NSString *errorMessage = [NSString stringWithFormat:@"Could not merge videos: %@", [error localizedDescription]];
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:errorMessage preferredStyle:UIAlertControllerStyleAlert];
+                    [self presentViewController:alert animated:YES completion:nil];
+                    return;
+
+                } else {
+                    if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum ([mergedVideoURL path])) {
+                        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                            [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:mergedVideoURL];
+                        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+                            if (success) {
+                                self.vwLoading.hidden = YES;
+                                PHFetchOptions *options = [[PHFetchOptions alloc] init];
+                                options.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"creationDate" ascending:NO]];
+                                PHAsset *asset = [[PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:options] firstObject];
+                                if (self.delegate != nil) {
+                                    [self.delegate videoCaptureFinishedWith:self.duration path:asset.localIdentifier];
+                                }
+
+                            }
+                        }];
 
                     }
-                }];
-
-            }
+                }
+            }];
         }
+    } else {
+        fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%lu.mov", (unsigned long)pathes.count]]];
     }
 }
 
