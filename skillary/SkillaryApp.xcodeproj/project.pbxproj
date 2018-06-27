@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
+		132F2D3820E2643800BFF30D /* SKGalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132F2D3720E2643800BFF30D /* SKGalleryController.m */; };
+		132F2D3C20E2689000BFF30D /* LibraryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 132F2D3B20E2689000BFF30D /* LibraryCell.m */; };
+		132F2D3F20E2697600BFF30D /* FileSystemHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 132F2D3E20E2697600BFF30D /* FileSystemHelper.m */; };
 		132FB1B520B4133B00533D44 /* SKPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132FB1B420B4133B00533D44 /* SKPhotoController.m */; };
 		13301EFD20BBBBB600B5BDA4 /* MyriadPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 13301EF620BBBBB600B5BDA4 /* MyriadPro-Regular.otf */; };
 		13301EFE20BBBBB600B5BDA4 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13301EF720BBBBB600B5BDA4 /* Roboto-Bold.ttf */; };
@@ -55,6 +58,12 @@
 
 /* Begin PBXFileReference section */
 		0207DA571B56EA530066E2B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SkillaryApp/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		132F2D3620E2643800BFF30D /* SKGalleryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKGalleryController.h; sourceTree = "<group>"; };
+		132F2D3720E2643800BFF30D /* SKGalleryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKGalleryController.m; sourceTree = "<group>"; };
+		132F2D3A20E2689000BFF30D /* LibraryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryCell.h; sourceTree = "<group>"; };
+		132F2D3B20E2689000BFF30D /* LibraryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryCell.m; sourceTree = "<group>"; };
+		132F2D3D20E2697600BFF30D /* FileSystemHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FileSystemHelper.h; path = SkillaryApp/Classes/Helpers/FileSystemHelper.h; sourceTree = SOURCE_ROOT; };
+		132F2D3E20E2697600BFF30D /* FileSystemHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FileSystemHelper.m; path = SkillaryApp/Classes/Helpers/FileSystemHelper.m; sourceTree = SOURCE_ROOT; };
 		132FB1B320B4133B00533D44 /* SKPhotoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPhotoController.h; sourceTree = "<group>"; };
 		132FB1B420B4133B00533D44 /* SKPhotoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPhotoController.m; sourceTree = "<group>"; };
 		13301EF620BBBBB600B5BDA4 /* MyriadPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MyriadPro-Regular.otf"; sourceTree = "<group>"; };
@@ -110,6 +119,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				132F2D3920E2687A00BFF30D /* Views */,
 				136C7984209EFA0100FC1C4C /* ViewControllers */,
 				1331E14020B69565004CA7E7 /* Helpers */,
 				302D95EE14D2391D003F00A1 /* MainViewController.h */,
@@ -121,6 +131,15 @@
 			name = Classes;
 			path = SkillaryApp/Classes;
 			sourceTree = SOURCE_ROOT;
+		};
+		132F2D3920E2687A00BFF30D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				132F2D3A20E2689000BFF30D /* LibraryCell.h */,
+				132F2D3B20E2689000BFF30D /* LibraryCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
 		};
 		13301EF520BBBBB600B5BDA4 /* Fonts */ = {
 			isa = PBXGroup;
@@ -143,6 +162,8 @@
 				134C60B120C8F9E3007D6794 /* DPVideoMerger.m */,
 				1331E14220B6958E004CA7E7 /* SKCameraHelper.h */,
 				1331E14320B6958E004CA7E7 /* SKCameraHelper.m */,
+				132F2D3D20E2697600BFF30D /* FileSystemHelper.h */,
+				132F2D3E20E2697600BFF30D /* FileSystemHelper.m */,
 			);
 			name = Helpers;
 			path = ViewControllers/Helpers;
@@ -155,6 +176,8 @@
 				136C7989209EFA3200FC1C4C /* SKCordovaController.m */,
 				136C798B209EFA5000FC1C4C /* SKCaptureController.h */,
 				136C798C209EFA5000FC1C4C /* SKCaptureController.m */,
+				132F2D3620E2643800BFF30D /* SKGalleryController.h */,
+				132F2D3720E2643800BFF30D /* SKGalleryController.m */,
 				132FB1B320B4133B00533D44 /* SKPhotoController.h */,
 				132FB1B420B4133B00533D44 /* SKPhotoController.m */,
 			);
@@ -287,7 +310,7 @@
 				LastUpgradeCheck = 0510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 7FW6K2UE59;
+						DevelopmentTeam = 3F959U9LPU;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -374,12 +397,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				132F2D3C20E2689000BFF30D /* LibraryCell.m in Sources */,
 				134C60B420C8F9E4007D6794 /* DPVideoMerger.m in Sources */,
+				132F2D3F20E2697600BFF30D /* FileSystemHelper.m in Sources */,
 				136C798A209EFA3200FC1C4C /* SKCordovaController.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1331E14420B6958E004CA7E7 /* SKCameraHelper.m in Sources */,
 				132FB1B520B4133B00533D44 /* SKPhotoController.m in Sources */,
 				136C798D209EFA5000FC1C4C /* SKCaptureController.m in Sources */,
+				132F2D3820E2643800BFF30D /* SKGalleryController.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				136C7993209F00C000FC1C4C /* SKCapturePlugin.m in Sources */,
@@ -406,8 +432,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 7FW6K2UE59;
+				DEVELOPMENT_TEAM = 3F959U9LPU;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -417,7 +445,10 @@
 				INFOPLIST_FILE = "SkillaryApp/SkillaryApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.skillary.video.test;
 				PRODUCT_NAME = SkillaryApp;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -431,8 +462,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = 7FW6K2UE59;
+				DEVELOPMENT_TEAM = 3F959U9LPU;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SkillaryApp/SkillaryApp-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
@@ -440,7 +473,9 @@
 				INFOPLIST_FILE = "SkillaryApp/SkillaryApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.skillary.video.test;
 				PRODUCT_NAME = SkillaryApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

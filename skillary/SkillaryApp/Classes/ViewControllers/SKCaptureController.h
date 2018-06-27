@@ -9,7 +9,6 @@
 
 @protocol SKCaptureControllerDelegate
 
-- (void)videoCaptureFinishedWith:(NSString *)duration path:(NSString *)path;
 - (void)videoCaptureAborted;
 
 @end
@@ -28,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbSpeed;
 @property (weak, nonatomic) IBOutlet UILabel *lbFont;
 @property (weak, nonatomic) IBOutlet UIView *vwLoading;
+@property (weak, nonatomic) IBOutlet UIButton *btGallery;
+@property (weak, nonatomic) IBOutlet UIImageView *ivGallery;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *vwLeftVerticalSepratorTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *vwRightVerticalSepratorLeadingConstraint;

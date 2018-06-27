@@ -8,8 +8,9 @@
 #import "SKCordovaController.h"
 #import "SKCaptureController.h"
 #import "SKPhotoController.h"
+#import "SKGalleryController.h"
 
-@interface SKCordovaController () <SKCaptureControllerDelegate, SKPhotoControllerDelegate>
+@interface SKCordovaController () <SKCaptureControllerDelegate, SKPhotoControllerDelegate, SKGalleryControllerDelegate>
 
 @property (nonatomic, strong) NSString *duration;
 @property (nonatomic, strong) NSString *text;
@@ -62,14 +63,6 @@
 
 #pragma mark - SKCaptureControllerDelegate
 
-- (void)videoCaptureFinishedWith:(NSString *)duration path:(NSString *)path {
-    dispatch_async(dispatch_get_main_queue(), ^ {
-        [self.navigationController popViewControllerAnimated:YES];
-        [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishCapturingScreen(\"%@\", \"%@\")", duration, path]];
-    });
-
-}
-
 - (void)videoCaptureAborted {
     dispatch_async(dispatch_get_main_queue(), ^ {
         [self.navigationController popViewControllerAnimated:YES];
@@ -92,6 +85,17 @@
         [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishAuthenticationWithoutPhoto()"]];
     });
 }
+
+#pragma mark - SKGalleryControllerDelegate
+
+- (void)videoSelectedWith:(NSString *)duration path:(NSString *)path {
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self.navigationController popToViewController:self animated:YES];
+        [(UIWebView *)self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"app.finishCapturingScreen(\"%@\", \"%@\")", duration, path]];
+    });
+}
+
+
 
 @end
 

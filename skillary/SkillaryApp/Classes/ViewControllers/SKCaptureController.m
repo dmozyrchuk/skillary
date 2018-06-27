@@ -9,6 +9,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/Photos.h>
 #import "DPVideoMerger.h"
+#import "FileSystemHelper.h"
+#import "SKGalleryController.h"
 
 typedef enum : NSUInteger {
     prepared,
@@ -45,14 +47,19 @@ typedef enum : NSUInteger {
     pan.cancelsTouchesInView = NO;
     [self.vwGestures addGestureRecognizer:pan];
     pathes = [[NSMutableArray alloc] init];
+    [self setupPreview];
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setupPreview];
+    [self.navigationController.navigationBar setHidden:YES];
     if ([captureSession isRunning]== NO) {
         [captureSession startRunning];
+    }
+    UIImage *thumbNail = [FileSystemHelper thumbnailForLatestVideoInGallery];
+    if (thumbNail != nil) {
+        [self.ivGallery setImage:thumbNail];
     }
 }
 
@@ -61,15 +68,17 @@ typedef enum : NSUInteger {
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"gallerySegue"]) {
+        SKGalleryController *destination = [segue destinationViewController];
+        destination.delegate = (id<SKGalleryControllerDelegate>)self.delegate;
+    }
 }
-*/
+
 - (IBAction)btStartTapped:(id)sender {
     if (self.currentState == prepared) {
         [self startCapturing];
@@ -85,6 +94,17 @@ typedef enum : NSUInteger {
         [self resumeCapturing];
     }
 
+}
+
+- (IBAction)btGalleyTapped:(id)sender {
+    if (self.currentState == started) {
+        [self.btStart setImage:[UIImage imageNamed:@"camera-off"] forState:UIControlStateNormal];
+        if (timer != nil) {
+            [timer invalidate];
+        }
+        [self pauseCapturing];
+    }
+    [self performSegueWithIdentifier:@"gallerySegue" sender:self];
 }
 
 - (IBAction)btSubtitlesTapped:(id)sender {
@@ -125,12 +145,12 @@ typedef enum : NSUInteger {
 #pragma mark - Custom Accessors
 
 - (void)setupUI {
-    [self.navigationController.navigationBar setHidden:YES];
-    self.tvSubtitles.contentOffset = CGPointMake(0, 0);
+
     scrollSpeed = 100.0f;
     fontSize = 44.0f;
     [self.tvSubtitles setFont:[UIFont systemFontOfSize:fontSize]];
     [self.tvSubtitles setText:self.text];
+    self.tvSubtitles.contentOffset = CGPointMake(0, 0);
     self.currentState = prepared;
     [self updateCounterLabel];
     isSubtitlesHidden = YES;
@@ -147,6 +167,17 @@ typedef enum : NSUInteger {
     self.vwTopHorizontalSepratorBottomConstraint.constant = screenHeight / 6;
     self.vwBottomHorizontalSepratorTopConstraint.constant = screenHeight / 6;
     [self.view layoutIfNeeded];
+}
+
+- (void)reloadUIAndLogicAfterRecording {
+    self.tvSubtitles.contentOffset = CGPointMake(0, 0);
+    self.currentState = prepared;
+    currentCounterValiue = [self.duration integerValue];
+    [self.btStart setImage:[UIImage imageNamed:@"camera-off"] forState:UIControlStateNormal];
+    self.vwLoading.hidden = YES;
+    [self updateCounterLabel];
+    pathes = [[NSMutableArray alloc] init];
+    fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"0.mov"]];
 }
 
 - (void)panGesture:(UIPanGestureRecognizer *)pan {
@@ -324,23 +355,32 @@ typedef enum : NSUInteger {
                     return;
 
                 } else {
-                    if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum ([mergedVideoURL path])) {
-                        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-                            [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:mergedVideoURL];
-                        } completionHandler:^(BOOL success, NSError * _Nullable error) {
-                            if (success) {
-                                self.vwLoading.hidden = YES;
-                                PHFetchOptions *options = [[PHFetchOptions alloc] init];
-                                options.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"creationDate" ascending:NO]];
-                                PHAsset *asset = [[PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:options] firstObject];
-                                if (self.delegate != nil) {
-                                    [self.delegate videoCaptureFinishedWith:self.duration path:asset.localIdentifier];
-                                }
-
-                            }
-                        }];
-
-                    }
+                    NSString *destPath = [FileSystemHelper pathForVideoAtVideoFolder];
+                    [FileSystemHelper moveVideoAtPath:[mergedVideoURL path] toPath:destPath];
+                    dispatch_async(dispatch_get_main_queue(), ^ {
+                        UIImage *thumbNail = [FileSystemHelper thumbnailForLatestVideoInGallery];
+                        if (thumbNail != nil) {
+                            [self.ivGallery setImage:thumbNail];
+                        }
+                        [self reloadUIAndLogicAfterRecording];
+                    });
+//                    if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum ([mergedVideoURL path])) {
+//                        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+//                            [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:mergedVideoURL];
+//                        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+//                            if (success) {
+//                                self.vwLoading.hidden = YES;
+//                                PHFetchOptions *options = [[PHFetchOptions alloc] init];
+//                                options.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"creationDate" ascending:NO]];
+//                                PHAsset *asset = [[PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:options] firstObject];
+//                                if (self.delegate != nil) {
+//                                    [self.delegate videoCaptureFinishedWith:self.duration path:asset.localIdentifier];
+//                                }
+//
+//                            }
+//                        }];
+//
+//                    }
                 }
             }];
         }
